@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parvoz Cafe - Milliy va Zamonaviy Ta'mlar</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #c0392b;
+        --secondary: #e74c3c;
+        --light: #fff8f0;
+        --dark: #333;
+        --gray: #eee;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f9f9f9;
+        color: var(--dark);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: var(--primary);
+        color: white;
+        padding: 15px 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 30px;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-weight: 500;
+        transition: opacity 0.3s;
+      }
+
+      nav ul li a:hover {
+        opacity: 0.8;
+      }
+
+      .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Hero Section */
+      .hero {
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+          url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        color: white;
+        margin-top: 60px;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: var(--primary);
+        color: white;
+        padding: 12px 30px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s, transform 0.3s;
+      }
+
+      .btn:hover {
+        background-color: var(--secondary);
+        transform: translateY(-3px);
+      }
+
+      /* About Section */
+      .about {
+        padding: 80px 0;
+        background-color: white;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 50px;
+        color: var(--primary);
+      }
+
+      .about-content {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+      }
+
+      .about-text {
+        flex: 1;
+      }
+
+      .about-text h3 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: var(--dark);
+      }
+
+      .about-text p {
+        margin-bottom: 15px;
+        color: #555;
+      }
+
+      .about-image {
+        flex: 1;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .about-image img {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      /* Specialties Section */
+      .specialties {
+        padding: 80px 0;
+        background-color: var(--gray);
+      }
+
+      .specialties-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      .specialty-card {
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+      }
+
+      .specialty-card:hover {
+        transform: translateY(-10px);
+      }
+
+      .specialty-image {
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .specialty-content {
+        padding: 20px;
+      }
+
+      .specialty-content h3 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        color: var(--primary);
+      }
+
+      .specialty-content p {
+        color: #666;
+      }
+
+      /* Gallery Section */
+      .gallery {
+        padding: 80px 0;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .gallery-item {
+        height: 250px;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s;
+      }
+
+      .gallery-item:hover img {
+        transform: scale(1.1);
+      }
+
+      /* Testimonials Section */
+      .testimonials {
+        padding: 80px 0;
+        background-color: var(--gray);
+      }
+
+      .testimonials-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .testimonial {
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+      }
+
+      .testimonial-content {
+        font-style: italic;
+        margin-bottom: 20px;
+        color: #555;
+      }
+
+      .testimonial-author {
+        display: flex;
+        align-items: center;
+      }
+
+      .testimonial-author img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 15px;
+        object-fit: cover;
+      }
+
+      .author-info h4 {
+        color: var(--primary);
+        margin-bottom: 5px;
+      }
+
+      .author-info p {
+        color: #777;
+        font-size: 0.9rem;
+      }
+
+      /* Contact Section */
+      .contact {
+        padding: 80px 0;
+        background-color: white;
+      }
+
+      .contact-container {
+        display: flex;
+        gap: 50px;
+      }
+
+      .contact-info {
+        flex: 1;
+      }
+
+      .contact-info h3 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+        color: var(--primary);
+      }
+
+      .info-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 20px;
+      }
+
+      .info-item i {
+        font-size: 1.2rem;
+        color: var(--primary);
+        margin-right: 15px;
+        margin-top: 5px;
+      }
+
+      .info-text h4 {
+        margin-bottom: 5px;
+        color: var(--dark);
+      }
+
+      .info-text p {
+        color: #666;
+      }
+
+      .contact-form {
+        flex: 1;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--dark);
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      .form-group textarea {
+        height: 150px;
+        resize: vertical;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 50px 0 20px;
+        text-align: center;
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+      }
+
+      .footer-column {
+        flex: 1;
+        min-width: 250px;
+        margin-bottom: 30px;
+      }
+
+      .footer-column h3 {
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        color: var(--primary);
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 10px;
+      }
+
+      .footer-column ul li a {
+        color: #bbb;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column ul li a:hover {
+        color: white;
+      }
+
+      .social-icons {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .social-icons a {
+        color: white;
+        font-size: 1.5rem;
+        margin: 0 10px;
+        transition: color 0.3s;
+      }
+
+      .social-icons a:hover {
+        color: var(--primary);
+      }
+
+      .copyright {
+        border-top: 1px solid #444;
+        padding-top: 20px;
+        color: #bbb;
+        font-size: 0.9rem;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .about-content {
+          flex-direction: column;
+        }
+
+        .contact-container {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 768px) {
+        nav ul {
+          display: none;
+          position: absolute;
+          top: 60px;
+          left: 0;
+          right: 0;
+          background-color: var(--primary);
+          flex-direction: column;
+          padding: 20px;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul.show {
+          display: flex;
+        }
+
+        nav ul li {
+          margin: 10px 0;
+        }
+
+        .mobile-menu-btn {
+          display: block;
+        }
+
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .section-title {
+          font-size: 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <div class="logo">Parvoz Cafe</div>
+        <nav>
+          <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+          </button>
+          <ul id="nav-menu">
+            <li><a href="#home">Bosh sahifa</a></li>
+            <li><a href="#about">Biz haqimizda</a></li>
+            <li><a href="#specialties">Maxsus taomlar</a></li>
+            <li><a href="#gallery">Galereya</a></li>
+            <li><a href="#contact">Aloqa</a></li>
+            <li><a href="menu.html">Menyu</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1>Parvoz Cafe - Milliy va Zamonaviy Ta'mlar</h1>
+        <p>
+          O'zbekistonning eng yaxshi kafe laridan birida mazali taomlar va issiq
+          mehmondo'stlikni tatib ko'ring
+        </p>
+        <a href="menu.html" class="btn">Menyuni ko'rish</a>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+      <div class="container">
+        <h2 class="section-title">Biz haqimizda</h2>
+        <div class="about-content">
+          <div class="about-text">
+            <h3>20 yillik tajriba bilan an'anaviy va zamonaviy taomlar</h3>
+            <p>
+              Parvoz Cafe 2003 yilda Chust tumanida ochilgan bo'lib, o'zbek
+              milliy taomlarini eng yuqori darajada takdim etish maqsadida
+              faoliyat olib bormoqda. Yillar davomida biz o'z mijozlarimizga
+              sifatli xizmat ko'rsatish va mazali taomlar takdim etish orqali
+              ularning ishonchini qozonib kelmoqdamiz.
+            </p>
+            <p>
+              Bizning oshpazlarimiz an'anaviy retseptlarni zamonaviy uslubda
+              tayyorlash bo'yicha mutaxassislar bo'lib, har bir taomga alohida
+              e'tibor va mehribonlik bilan yondashadi.
+            </p>
+            <p>
+              Kafemiz oilaviy dam olish kunlari, to'ylar, tantanalar va biznes
+              lanchlar uchun ajoyib muhit yaratadi.
+            </p>
+          </div>
+          <div class="about-image">
+            <img
+              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"
+              alt="Parvoz Cafe interior"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Specialties Section -->
+    <section class="specialties" id="specialties">
+      <div class="container">
+        <h2 class="section-title">Maxsus Taomlarimiz</h2>
+        <div class="specialties-grid">
+          <div class="specialty-card">
+            <div
+              class="specialty-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80');
+              "
+            ></div>
+            <div class="specialty-content">
+              <h3>Chustcha Osh</h3>
+              <p>
+                Chust tumanining maxsus uslubida tayyorlangan an'anaviy osh,
+                qo'y go'shti va mahalliy ziravorlar bilan
+              </p>
+            </div>
+          </div>
+          <div class="specialty-card">
+            <div
+              class="specialty-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1633321702518-6c3bc8e39ac9?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80');
+              "
+            ></div>
+            <div class="specialty-content">
+              <h3>Maxsus Doner</h3>
+              <p>
+                Turk oshpazlarimiz tomonidan maxsus retsept bo'yicha
+                tayyorlangan doner kebab
+              </p>
+            </div>
+          </div>
+          <div class="specialty-card">
+            <div
+              class="specialty-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80');
+              "
+            ></div>
+            <div class="specialty-content">
+              <h3>Parvoz Sushi</h3>
+              <p>
+                Yapon oshpazlarimiz tomonidan o'zbek ta'mlari bilan
+                uyg'unlashtirilgan maxsus sushi assortimenti
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+      <div class="container">
+        <h2 class="section-title">Galereya</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"
+              alt="Manti"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"
+              alt="Burger"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1617196034183-421b4917c92d?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"
+              alt="Sushi"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"
+              alt="Ichimliklar"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"
+              alt="Cafe interior"
+            />
+          </div>
+          <div class="gallery-item">
+            <img
+              src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80"
+              alt="Cafe exterior"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+      <div class="container">
+        <h2 class="section-title">Mijozlarimiz Fikrlari</h2>
+        <div class="testimonials-container">
+          <div class="testimonial">
+            <div class="testimonial-content">
+              "Parvoz Cafe - bu nafaqat mazali taomlar, balki ajoyib muhit va
+              mehribon xodimlar. Har safar Chustga kelganimda, bu kafega tashrif
+              buyurishni istisyo qilaman."
+            </div>
+            <div class="testimonial-author">
+              <img
+                src="https://randomuser.me/api/portraits/men/32.jpg"
+                alt="Akmaljon"
+              />
+              <div class="author-info">
+                <h4>Akmaljon</h4>
+                <p>Toshkent shahridan</p>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial-content">
+              "O'zbekistonning turli joylarida ko'plab kafelarda bo'lganman,
+              lekin Chustcha oshni Parvoz Cafedagidek mazali tayyorlay oladigan
+              joyni topa olmadim. Oshpazlarga katta rahmat!"
+            </div>
+            <div class="testimonial-author">
+              <img
+                src="https://randomuser.me/api/portraits/women/44.jpg"
+                alt="Dilfuza"
+              />
+              <div class="author-info">
+                <h4>Dilfuza</h4>
+                <p>Farg'onadan</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <h2 class="section-title">Aloqa</h2>
+        <div class="contact-container">
+          <div class="contact-info">
+            <h3>Biz bilan bog'laning</h3>
+            <div class="info-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div class="info-text">
+                <h4>Manzil</h4>
+                <p>Namangan Viloyati, Chust tumani, Markaziy ko'cha 45</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-phone-alt"></i>
+              <div class="info-text">
+                <h4>Telefon</h4>
+                <p>+998 90 123 45 67</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-envelope"></i>
+              <div class="info-text">
+                <h4>Email</h4>
+                <p>info@parvozcafe.uz</p>
+              </div>
+            </div>
+            <div class="info-item">
+              <i class="fas fa-clock"></i>
+              <div class="info-text">
+                <h4>Ish vaqti</h4>
+                <p>Dushanba-Yakshanba: 08:00 - 23:00</p>
+              </div>
+            </div>
+          </div>
+          <div class="contact-form">
+            <form>
+              <div class="form-group">
+                <label for="name">Ismingiz</label>
+                <input type="text" id="name" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required />
+              </div>
+              <div class="form-group">
+                <label for="message">Xabar</label>
+                <textarea id="message" required></textarea>
+              </div>
+              <button type="submit" class="btn">Xabarni yuborish</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>Parvoz Cafe</h3>
+            <p>
+              Milliy va zamonaviy taomlarning mukammal uyg'unligi. 20 yildan
+              ortiq tajriba.
+            </p>
+            <div class="social-icons">
+              <a href="https://www.instagram.com/parvoz.cafe/"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a href="#"><i class="fab fa-telegram"></i></a>
+              <a href="#"><i class="fab fa-facebook"></i></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Tez havolalar</h3>
+            <ul>
+              <li><a href="#home">Bosh sahifa</a></li>
+              <li><a href="#about">Biz haqimizda</a></li>
+              <li><a href="#specialties">Maxsus taomlar</a></li>
+              <li><a href="#gallery">Galereya</a></li>
+              <li><a href="#contact">Aloqa</a></li>
+              <li><a href="menu.html">Menyu</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Ish vaqti</h3>
+            <ul>
+              <li>Dushanba - Yakshanba</li>
+              <li>08:00 - 23:00</li>
+              <li>Bayram kunlari: 10:00 - 22:00</li>
+            </ul>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 Parvoz Cafe. Barcha huquqlar himoyalangan.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      const menuBtn = document.querySelector(".mobile-menu-btn");
+      const navMenu = document.getElementById("nav-menu");
+
+      menuBtn.addEventListener("click", () => {
+        navMenu.classList.toggle("show");
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+
+          const targetId = this.getAttribute("href");
+          if (targetId === "#") return;
+
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 80,
+              behavior: "smooth",
+            });
+
+            // Close mobile menu if open
+            navMenu.classList.remove("show");
+          }
+        });
+      });
+
+      // Form submission
+      const contactForm = document.querySelector(".contact-form form");
+      if (contactForm) {
+        contactForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          alert("Xabaringiz uchun rahmat! Tez orada siz bilan bog'lanamiz.");
+          this.reset();
+        });
+      }
+    </script>
+  </body>
+</html>

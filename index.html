@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="uz">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="google-site-verification"
+      content="dRxHC4x7tYCDM08_jBKc8DsrswPGZXzAMEb_79RBufc"
+    />
+    <title>Parvoz Cafe-Menu</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #c0392b;
+        --secondary: #e74c3c;
+        --light: #fff8f0;
+        --dark: #333;
+        --gray: #eee;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f9f9f9;
+        color: var(--dark);
+        line-height: 1.6;
+        position: relative;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 30%;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      header {
+        background-color: var(--primary);
+        color: white;
+        padding: 20px 0;
+        text-align: center;
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      .logo {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .tagline {
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .menu-categories {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+      }
+
+      .category-card {
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+
+      .category-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .category-image {
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .category-info {
+        padding: 20px;
+      }
+
+      .category-title {
+        font-size: 1.5rem;
+        color: var(--primary);
+        margin-bottom: 10px;
+      }
+
+      .category-count {
+        color: #777;
+        font-size: 0.9rem;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        background-color: var(--dark);
+        color: white;
+        margin-top: 50px;
+        border-radius: 20px 20px 0 0;
+      }
+
+      .social-icons {
+        margin: 15px 0;
+      }
+
+      .social-icons a {
+        color: white;
+        margin: 0 10px;
+        font-size: 1.5rem;
+      }
+
+      /* Item Page Styles */
+      .item-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .back-button {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+      }
+
+      .back-button i {
+        margin-right: 8px;
+      }
+
+      .items-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+      }
+
+      .item-card {
+        background-color: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .item-image {
+        height: 200px;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .item-info {
+        padding: 20px;
+      }
+
+      .item-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .item-price {
+        color: var(--primary);
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      .item-description {
+        color: #666;
+        margin: 10px 0;
+        font-size: 0.9rem;
+      }
+
+      .order-btn {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 100%;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+      }
+
+      .order-btn:hover {
+        background-color: var(--secondary);
+      }
+
+      /* Hidden class for page navigation */
+      .hidden {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .menu-categories {
+          grid-template-columns: 1fr;
+        }
+
+        .logo {
+          font-size: 2rem;
+        }
+
+        body::after {
+          background-size: 200px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Main Menu Page -->
+    <div id="main-page">
+      <header>
+        <div class="container">
+          <div class="logo">Parvoz Cafe</div>
+          <div class="tagline">Milliy va Zamonaviy Ta'mlar</div>
+        </div>
+      </header>
+
+      <div class="container">
+        <h2
+          style="text-align: center; margin-bottom: 30px; color: var(--primary)"
+        >
+          Menyu Kategoriyalari
+        </h2>
+
+        <div class="menu-categories">
+          <div class="category-card" onclick="showCategory('uzbek')">
+            <div
+              class="category-image"
+              style="background-image: url('Palov.jpg')"
+            ></div>
+            <div class="category-info">
+              <h3 class="category-title">O'zbek Milliy Taomlari</h3>
+              <div class="category-count">4 ta taom</div>
+            </div>
+          </div>
+
+          <div class="category-card" onclick="showCategory('turk')">
+            <div
+              class="category-image"
+              style="background-image: url('turkish food.jpg')"
+            ></div>
+            <div class="category-info">
+              <h3 class="category-title">Turk Taomlari</h3>
+              <div class="category-count">4 ta taom</div>
+            </div>
+          </div>
+
+          <div class="category-card" onclick="showCategory('fastfood')">
+            <div
+              class="category-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="category-info">
+              <h3 class="category-title">Fastfood</h3>
+              <div class="category-count">4 ta taom</div>
+            </div>
+          </div>
+
+          <div class="category-card" onclick="showCategory('sushi')">
+            <div
+              class="category-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="category-info">
+              <h3 class="category-title">Sushi</h3>
+              <div class="category-count">4 ta taom</div>
+            </div>
+          </div>
+
+          <div class="category-card" onclick="showCategory('drinks')">
+            <div
+              class="category-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="category-info">
+              <h3 class="category-title">Ichimliklar</h3>
+              <div class="category-count">5 ta ichimlik</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="container">
+          <div class="social-icons">
+            <a href="https://www.instagram.com/parvoz.cafe/"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+          </div>
+          <p>© 2025 Parvoz Cafe.</p>
+          <p>+998 90 123 45 67 | Namangan Viloyati, Chust tumani</p>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Uzbek Food Page -->
+    <div id="uzbek-page" class="hidden">
+      <div class="container">
+        <div class="item-header">
+          <button class="back-button" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> Orqaga
+          </button>
+          <h2>O'zbek Milliy Taomlari</h2>
+          <div style="width: 120px"></div>
+          <!-- For alignment -->
+        </div>
+
+        <div class="items-grid">
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="background-image: url('Palov.jpg')"
+              ;
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Osh</h3>
+              <div class="item-price">30,000 so'm</div>
+              <p class="item-description">
+                An'anaviy O'zbek palovi, go'sht, sabzavotlar va mazali guruch
+                bilan tayyorlangan.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="background-image: url('manti.jpg')"
+              ;
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Manti</h3>
+              <div class="item-price">30,000 so'm</div>
+              <p class="item-description">
+                Xamir qobig'ida pishirilgan go'shtli dumpling, qaymoq va
+                ziravorlar bilan.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="background-image: url('lagman.jpg')"
+              ;
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Lagman</h3>
+              <div class="item-price">31,000 so'm</div>
+              <p class="item-description">
+                Ingichka kesilgan xamir va quritilgan go'shtdan tayyorlangan
+                an'anaviy taom.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="background-image: url('shurpa.jpg')"
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Shurva</h3>
+              <div class="item-price">40,000 so'm</div>
+              <p class="item-description">
+                Go'sht va yangi sabzavotlardan tayyorlangan mazali sho'rva.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Turk Food Page -->
+    <div id="turk-page" class="hidden">
+      <div class="container">
+        <div class="item-header">
+          <button class="back-button" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> Orqaga
+          </button>
+          <h2>Turk Taomlari</h2>
+          <div style="width: 120px"></div>
+        </div>
+
+        <div class="items-grid">
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1633321702518-6c3bc8e39ac9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Doner Kebab</h3>
+              <div class="item-price">28,000 so'm</div>
+              <p class="item-description">
+                Turkcha usulda tayyorlangan go'sht, lavash va yangi sabzavotlar
+                bilan.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1632818924360-68f73a73b1b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Lahmacun</h3>
+              <div class="item-price">24,000 so'm</div>
+              <p class="item-description">
+                Ingichka xamir ustiga go'sht va ziravorlar qo'yib tayyorlangan
+                Turk pitsasi.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1632818924360-68f73a73b1b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Pide</h3>
+              <div class="item-price">26,000 so'm</div>
+              <p class="item-description">
+                Turkcha qayla, go'sht va pishloqli an'anaviy non.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1603366615917-1fa6dad5c4fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Mercimek sho'rva</h3>
+              <div class="item-price">15,000 so'm</div>
+              <p class="item-description">
+                Yasmiq no'xati va ziravorlardan tayyorlangan mazali Turk
+                sho'rvasi.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fast Food Page -->
+    <div id="fastfood-page" class="hidden">
+      <div class="container">
+        <div class="item-header">
+          <button class="back-button" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> Orqaga
+          </button>
+          <h2>Fastfood</h2>
+          <div style="width: 120px"></div>
+        </div>
+
+        <div class="items-grid">
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Burger</h3>
+              <div class="item-price">20,000 so'm</div>
+              <p class="item-description">
+                Katta go'sht kotlet, yangi sabzavotlar va maxsus sous bilan.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1608767229051-5335a6c5e5b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Cheeseburger</h3>
+              <div class="item-price">22,000 so'm</div>
+              <p class="item-description">
+                Burger + pishloq, mazali kombinatsiya.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1611721480629-3204740f8bfa?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Hotdog</h3>
+              <div class="item-price">15,000 so'm</div>
+              <p class="item-description">
+                Sosiska, non va turli xil souslar bilan.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1541592106381-b31e9677c0e5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Kartoshka fri</h3>
+              <div class="item-price">10,000 so'm</div>
+              <p class="item-description">
+                Xrispi kartoshka, tuz va ket-chup bilan.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sushi Page -->
+    <div id="sushi-page" class="hidden">
+      <div class="container">
+        <div class="item-header">
+          <button class="back-button" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> Orqaga
+          </button>
+          <h2>Sushi</h2>
+          <div style="width: 120px"></div>
+        </div>
+
+        <div class="items-grid">
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1579871494447-9811cf80d66c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">California Roll</h3>
+              <div class="item-price">35,000 so'm</div>
+              <p class="item-description">
+                Qisqichbaqa go'shti, avakado va xiyor bilan tayyorlangan.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1617196034183-421b4917c92d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Philadelphia Roll</h3>
+              <div class="item-price">38,000 so'm</div>
+              <p class="item-description">
+                Losos, pishloq va avakado bilan tayyorlangan.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1617196035154-1e1b6beee1b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Nigiri</h3>
+              <div class="item-price">30,000 so'm</div>
+              <p class="item-description">
+                Guruch ustiga qo'yilgan yangi baliq dilimlari.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1617196034396-970d1e427ab0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Maki</h3>
+              <div class="item-price">28,000 so'm</div>
+              <p class="item-description">
+                Guruch va baliq o'ralgan nori barglari.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drinks Page -->
+    <div id="drinks-page" class="hidden">
+      <div class="container">
+        <div class="item-header">
+          <button class="back-button" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> Orqaga
+          </button>
+          <h2>Ichimliklar</h2>
+          <div style="width: 120px"></div>
+        </div>
+
+        <div class="items-grid">
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1551024709-8f23befc6f87?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Moxito (limonli)</h3>
+              <div class="item-price">15,000 so'm</div>
+              <p class="item-description">
+                Yangi limon, yalpiz va muz bilan tayyorlangan sovuq ichimlik.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1554866585-cd94860890b7?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Coca-Cola</h3>
+              <div class="item-price">8,000 so'm</div>
+              <p class="item-description">0.5L klassik gazlangan ichimlik.</p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1625772452859-1c03d5bf1137?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Fanta</h3>
+              <div class="item-price">8,000 so'm</div>
+              <p class="item-description">0.5L apelsinli gazlangan ichimlik.</p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1615484477778-ca3b77940c25?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Apelsin soki</h3>
+              <div class="item-price">10,000 so'm</div>
+              <p class="item-description">
+                Tabiiy yangi siqilgan apelsin sharbati.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+
+          <div class="item-card">
+            <div
+              class="item-image"
+              style="
+                background-image: url('https://images.unsplash.com/photo-1603569283847-aa295f0d016a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80');
+              "
+            ></div>
+            <div class="item-info">
+              <h3 class="item-title">Olma soki</h3>
+              <div class="item-price">10,000 so'm</div>
+              <p class="item-description">
+                Tabiiy yangi siqilgan olma sharbati.
+              </p>
+              <button class="order-btn">Buyurtma berish</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Show selected category page and hide others
+      function showCategory(category) {
+        document.getElementById("main-page").classList.add("hidden");
+        document.getElementById(`${category}-page`).classList.remove("hidden");
+      }
+
+      // Go back to main menu
+      function goBack() {
+        document.getElementById("main-page").classList.remove("hidden");
+        document.querySelectorAll(".hidden").forEach((page) => {
+          page.classList.add("hidden");
+        });
+      }
+
+      // Simple order function (would be connected to backend in real app)
+      document.addEventListener("DOMContentLoaded", function () {
+        const orderButtons = document.querySelectorAll(".order-btn");
+        orderButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const itemName =
+              this.parentElement.querySelector(".item-title").textContent;
+            alert(`Rahmat! Siz "${itemName}" buyurtma qildingiz!`);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
